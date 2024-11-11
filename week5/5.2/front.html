@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add numbers</title>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+</head>
+<body>
+    <h1>Add Numbers: </h1>
+    <input type="number" name="" id="num1"></input>
+    <input type="number" name="" id="num2"></input>
+    <button id="add">add</button>
+    <ol></ol>
+    
+</body>
+<script>
+    // const axios = require('axios');
+
+    document.body.addEventListener('keydown' , (event) => {
+        // event.preventDefault();
+        if(event.key === 'Enter'){
+            addNums();
+        };
+    });
+
+    document.querySelector('button').addEventListener('click', (event) => {
+        addNums();
+    });
+
+    //adding numbers:
+    async function addNums(){
+        const num1 = document.querySelector('#num1').value;
+        const num2 = document.querySelector('#num2').value;
+        const response = await axios.post('http://localhost:9001/sum', {
+            a : num1,
+            b : num2
+        });
+
+        const data = response.data;
+        
+        // const orderedList = document.createElement('ol');
+        // document.body.appendChild(orderedList);
+    //using dom to create a response :
+    //iffie
+    (function(){
+        const ol = document.querySelector('ol');
+        //creating dynamic list elements and appending to the ol object
+        const li = document.createElement('li');
+        li.textContent = `The sum of ${num1} and ${num2} is : ${data.sum}`;
+        ol.appendChild(li);
+
+    })();
+
+    };
+
+
+
+
+
+</script>
+</html>
